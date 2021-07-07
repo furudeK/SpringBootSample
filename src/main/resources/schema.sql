@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS m_user (
 
 /* 部署マスタ */
 CREATE TABLE IF NOT EXISTS m_department (
-      department_id INT PRIMARY KEY
+                                            department_id INT PRIMARY KEY
     , department_name VARCHAR(50)
     );
 

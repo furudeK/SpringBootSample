@@ -28,7 +28,7 @@ public class UserListController {
 
         //Modelに登録
         model.addAttribute("userList", userList);
-
+        System.out.println(model);
         // ユーザー一覧画面を表示
         return "user/list";
     }
