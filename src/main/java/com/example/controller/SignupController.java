@@ -45,9 +45,9 @@ public class SignupController {
     @GetMapping("/signup")
     public String getSignup(Model model, Locale locale,
                             @ModelAttribute SignupForm form) {
-//        // 性別を取得
-//        Map<String, Integer> genderMap = userApplicationService.getGenderMap(locale);
-//        model.addAttribute("genderMap", genderMap);
+        // 性別を取得
+        Map<String, Integer> genderMap = userApplicationService.getGenderMap(locale);
+        model.addAttribute("genderMap", genderMap);
 
         // ユーザー登録画面に遷移
         return "user/signup";
