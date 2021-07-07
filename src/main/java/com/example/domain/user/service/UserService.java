@@ -1,5 +1,10 @@
 package com.example.domain.user.service;
 
-public class UserService {
+import com.example.domain.user.model.MUser;
 
+public interface UserService {
+    /**
+     * ユーザー登録
+     */
+    public void signup(MUser user);
 }
