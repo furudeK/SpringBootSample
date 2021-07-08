@@ -41,6 +41,14 @@
     <select id="findMany" resultType="MUser">
         select *
         from m_user
+        <where>
+            <if test="userId != null">
+                user_id like '%' || #{userId} || '%'
+            </if>
+            <if test="userName != null">
+                and user_name like '%' || #{userName} || '%'
+            </if>
+        </where>
     </select>
 
     <!-- ユーザー1件検索 -->
@@ -51,12 +59,17 @@
     </select>
 
     <!-- ユーザー1件更新 -->
-    <update id = "updateOne">
-        update m_user set password = #{password}, user_name = #{userName} where user_id = #{userId}
+    <update id="updateOne">
+        update m_user
+        set password  = #{password},
+            user_name = #{userName}
+        where user_id = #{userId}
     </update>
 
     <!-- ユーザー1件削除 -->
     <delete id="deleteOne">
-        delete from m_user where user_id =#{userId}
+        delete
+        from m_user
+        where user_id = #{userId}
     </delete>
 </mapper>
