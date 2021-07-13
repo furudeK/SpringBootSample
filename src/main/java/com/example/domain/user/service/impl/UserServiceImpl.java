@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.domain.user.model.MUser;
 import com.example.domain.user.service.UserService;
 import com.example.repository.UserMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,9 +44,13 @@ public class UserServiceImpl implements UserService {
     /**
      * ユーザー1件更新
      */
+    @Transactional
     @Override
     public void updateUserOne(String userId, String password, String userName) {
         mapper.updateOne(userId, password, userName);
+
+//        //例外を発生させる(8.4 トランザクション p.182~)
+//        int i = 1 / 0;
     }
 
     /**

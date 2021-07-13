@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -16,6 +17,7 @@ import com.example.form.UserDetailForm;
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserDetailController {
 
     @Autowired
@@ -50,9 +52,12 @@ public class UserDetailController {
      */
     @PostMapping(value = "/detail", params = "update")
     public String updateUser(UserDetailForm form, Model model) {
-        //ユーザーを更新
-        userService.updateUserOne(form.getUserId(), form.getPassword(), form.getUserName());
-
+        try {
+            //ユーザーを更新
+            userService.updateUserOne(form.getUserId(), form.getPassword(), form.getUserName());
+        }catch (Exception e){
+            log.error("ユーザー更新でエラー", e);
+        }
         // ユーザー一覧画面にリダイレクト
         return "redirect:/user/list";
     }
