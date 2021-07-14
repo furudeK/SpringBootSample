@@ -9,15 +9,15 @@ import com.example.domain.user.service.UserService;
 import com.example.form.GroupOrder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.application.service.UserApplicationService;
 import com.example.form.SignupForm;
@@ -75,5 +75,40 @@ public class SignupController {
         userService.signup(user);
         // ログイン画面にリダイレクト
         return "redirect:/login";
+    }
+
+    /**
+     * データベース関連の例外処理
+     */
+    @ExceptionHandler(DataAccessException.class)
+    public String dataAccessExceptionHundler(DataAccessException e, Model model) {
+
+        //空文字をセット
+        model.addAttribute("error", "");
+
+        //メッセージをModelに登録
+        model.addAttribute("message", "SignupControllerで例外が発生しました");
+
+        //HTTPのエラーコード（500）をModelに登録
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return "error";
+    }
+
+    /** その他の例外処理*/
+    @ExceptionHandler(Exception.class)
+    public String exceptionHandler(Exception e, Model model){
+
+        //空文字をセット
+        model.addAttribute("error", "");
+
+        //メッセージをModelに登録
+        model.addAttribute("message", "SignupControllerで例外が発生しました");
+
+        //HTTPのエラーコード（500）をModelに登録
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return "error";
+
     }
 }
