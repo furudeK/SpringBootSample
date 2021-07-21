@@ -3,6 +3,7 @@ package com.example.rest;
 import com.example.domain.user.model.MUser;
 import com.example.form.GroupOrder;
 import com.example.form.SignupForm;
+import com.example.form.UserListForm;
 import org.apache.catalina.User;
 import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ import com.example.form.UserDetailForm;
 
 import java.security.Signature;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -32,6 +34,17 @@ public class UserRestController {
 
     @Autowired
     private MessageSource messageSource;
+
+    /**ユーザー検索*/
+    @GetMapping("/get/list")
+    public List<MUser> getUserList(UserListForm form){
+        //formをMUserクラスに変換
+        MUser user = modelMapper.map(form, MUser.class);
+
+        //ユーザー一覧を取得
+        List<MUser> userList = userService.getUsers(user);
+        return userList;
+    }
 
     /**ユーザー登録*/
     @PostMapping("/signup/rest")
