@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -22,8 +20,12 @@ public class MUser {
     private Integer gender;
     private Integer departmentId;
     private String role;
-    @Transient
+
+
+    @ManyToOne(optional = true)
+    @JoinColumn(insertable = false, updatable = false, name = "departmentId")
     private Department department;
-    @Transient
+    @OneToMany
+    @JoinColumn(insertable = false, updatable = false, name = "userId")
     private List<Salary> salaryList;
 }
